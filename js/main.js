@@ -20,8 +20,6 @@ fetch(url).then(response => response.json()).then(function (data) {
 
         let li = createNode('li'),
             a = createNode('a');
-            
-        
        
         li.innerHTML = `Title: ${repoTitle}  <br> Language:  ${repoLang}`; // Make the HTML of our span to be the first and last name of our author
         li.classList.add('list-group-item');
