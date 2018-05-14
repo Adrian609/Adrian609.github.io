@@ -20,8 +20,8 @@ fetch(url).then(response => response.json()).then(function (data) {
 
         let li = createNode('li'),
             a = createNode('a');
-            form = createNode('form');
-        form.href = `${repoURL}`;
+            
+        
        
         li.innerHTML = `Title: ${repoTitle}  <br> Language:  ${repoLang}`; // Make the HTML of our span to be the first and last name of our author
         li.classList.add('list-group-item');
@@ -31,9 +31,8 @@ fetch(url).then(response => response.json()).then(function (data) {
         a.classList.add("float-right");
         a.href = `${repoURL}`;
         a.innerHTML = "View On GitHub";
-        form.classList.add("repoLink");
-        append(li, form);
-        append(form, a);
+        a.target = "_blank";
+        append(li, a);
         append(ul, li);
     });
 }).catch(function (error) {
