@@ -1,7 +1,8 @@
 const ul = document.getElementById("repos");
 const url = "https://api.github.com/users/adrian609/repos";
 const selector = document.getElementById("inlineFormCustomSelect");
-var repoArray = [];
+var repoArray=[];
+
 function createNode(element) {
     return document.createElement(element);
 }
@@ -15,11 +16,17 @@ fetch(url).then(response => response.json()).then(function (data) {
     let repos = data; // Get the results
     return repos.map(function (repo) { // Map through the results and for each run the code below
 
-        let repoTitle = repo.name,
+        let  repoTitle = repo.name,
             repoURL = repo.html_url,
             repoLang = repo.language;
 
-        createList(repoTitle, repoLang, repoURL);
+        let repoObject = {
+            name: repoTitle,
+            language: repoLang,
+            url: repoURL
+        };
+
+        createList(repoObject);
 
 
     });
@@ -27,23 +34,17 @@ fetch(url).then(response => response.json()).then(function (data) {
     console.log(error);
 });
 
-function createList(repoTitle, repoLang, repoURL) {
-    //console.log(repoTitle, repoLang, repoURL);
-   
-    new repoList();
+function createList(repoObject) {
 
-    var repoList = {
-        name: repoTitle,
-        language: repoLang,
-        url: repoURL
-    };
-    console.log(repoArray);
+    //console.log(repoObject);
+    var temp = repoArray.push(repoObject);
+    
 
     let li = createNode('li'),
         button = createNode('button');
 
     button.innerHTML = "View On GitHub";
-    li.innerHTML = `Title: ${repoList.name}  <br> Language:  ${repoList.language}`;
+    li.innerHTML = `Title: ${repoObject.name}  <br> Language:  ${repoObject.language}`;
     li.classList.add('list-group-item');
     li.classList.add('text-left');
     button.classList.add('btn');
@@ -52,5 +53,9 @@ function createList(repoTitle, repoLang, repoURL) {
     append(li, button);
     append(ul, li);
     //append(selector, op);
+    repoArray[0].name;
+    return repoArray;
 }
-console.log(repoArray.length);
+
+
+
