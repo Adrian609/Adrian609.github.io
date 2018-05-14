@@ -52,14 +52,14 @@ function creatList(repos) {
         low = repos.low,
         close = repos.close;
 
-        createChart(symbol, high, low, close);
+    createChart(symbol, high, low, close);
 
     console.log(repos);
 
     let p = createNode('p'),
         a = createNode('a');
 
-    p.innerHTML = ` ${name} ${symbol} ${high} ${low} ${close}`; // Make the HTML of our span to be the first and last name of our author
+    p.innerHTML = `<b>Company:</b> ${name} <b>SYM:</b> ${symbol} <b>High:</b><span id="high"> ${high}</span> <b>Low:</b><span id="low"> ${low}</span> <b>Close:</b> ${close}`; // Make the HTML of our span to be the first and last name of our author
 
     append(div, p);
 
@@ -97,7 +97,7 @@ function createChart(symbol, high, low, close) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: false
                     }
                 }]
             }
