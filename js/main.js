@@ -19,16 +19,21 @@ fetch(url).then(response => response.json()).then(function (data) {
             repoLang = repo.language;
 
         let li = createNode('li'),
-            button = createNode('button');
-
-        button.innerHTML = "View On GitHub";
+            a = createNode('a');
+            form = createNode('form');
+        form.href = `${repoURL}`;
+       
         li.innerHTML = `Title: ${repoTitle}  <br> Language:  ${repoLang}`; // Make the HTML of our span to be the first and last name of our author
         li.classList.add('list-group-item');
         li.classList.add('text-left');
-        button.classList.add('btn');
-        button.classList.add("btn-outline-primary");
-        button.classList.add("float-right")
-        append(li, button);
+        a.classList.add('btn');
+        a.classList.add("btn-outline-primary");
+        a.classList.add("float-right");
+        a.href = `${repoURL}`;
+        a.innerHTML = "View On GitHub";
+        form.classList.add("repoLink");
+        append(li, form);
+        append(form, a);
         append(ul, li);
     });
 }).catch(function (error) {
