@@ -1,3 +1,5 @@
+
+
 const div = document.getElementById("fetch-demo");
 const url = "https://api.iextrading.com/1.0/stock/aapl/quote";
 const url2 = "https://stats.nba.com/stats/commonallplayers";
@@ -5,7 +7,7 @@ function createNode(element) {
     return document.createElement(element);
 }
 
-function append(parent, el) {
+function appends(parent, el) {
     return parent.appendChild(el);
 }
 
@@ -17,7 +19,7 @@ fetch(url).then(response => response.json()).then(function (data) {
     creatList(repos);
 }).catch(function (error) {
     console.log(error);
-    alert('There was a problem getting info! *If you are using IE or Edge this demo will not work')
+    //alert('There was a problem getting info! *If you are using IE or Edge this demo will not work')
 });
 
 function creatList(repos) {
@@ -37,7 +39,7 @@ function creatList(repos) {
 
     p.innerHTML = `<b>Company:</b> ${name} <b>SYM:</b> ${symbol} <b>High:</b><span id="high"> ${high}</span> <b>Low:</b><span id="low"> ${low}</span> <b>Close:</b> ${close}`; // Make the HTML of our span to be the first and last name of our author
 
-    append(div, p);
+    appends(div, p);
 
 }
 
@@ -81,23 +83,79 @@ function createChart(symbol, high, low, close) {
     });
 }
 var cities = [];
-var totalCities = 3;
+var totalCities = 6;
+
+var recordDistance;
+var bestEver;
+
 function setup() {
-    
-    var myCanvas = createCanvas(600, 300);
+  var myCanvas = createCanvas(600, 300);
     myCanvas.parent('traveling-salesman');
-  
-    for (var i = 0; i < totalCities; i++) {
-        var v = createVector(random(width), random(height));
-        cities[i] = v;
-    }
-    
+  for (var i = 0; i < totalCities; i++) {
+    var v = createVector(random(width), random(height));
+    cities[i] = v;
+  }
+
+  var d = calcDistance(cities);
+  recordDistance = d;
+  bestEver = cities.slice();
+
 }
 
 function draw() {
-    background(0);
-    fill(255);
-    for (var i = 0; i < cities.length; i++) {
-        ellipse(cities[i].x, cities[i].y, 4, 4);
-    }
+  background(0);
+  fill(255);
+  for (var i = 0; i < cities.length; i++) {
+    ellipse(cities[i].x, cities[i].y, 8, 8);
+  }
+
+  stroke(255);
+  strokeWeight(1);
+  noFill();
+  beginShape();
+  for (var i = 0; i < cities.length; i++) {
+    vertex(cities[i].x, cities[i].y);
+  }
+  endShape();
+
+  stroke(255, 0, 255);
+  strokeWeight(4);
+  noFill();
+  beginShape();
+  for (var i = 0; i < cities.length; i++) {
+    vertex(bestEver[i].x, bestEver[i].y);
+  }
+  endShape();
+
+
+
+  var i = floor(random(cities.length));
+  var j = floor(random(cities.length));
+  swap(cities, i, j);
+
+  var d = calcDistance(cities);
+  if (d < recordDistance) {
+    recordDistance = d;
+    bestEver = cities.slice();
+  }
 }
+
+function swap(a, i, j) {
+  var temp = a[i];
+  a[i] = a[j];
+  a[j] = temp;
+}
+
+
+function calcDistance(points) {
+  var sum = 0;
+  for (var i = 0; i < points.length - 1; i++) {
+    var d = dist(points[i].x, points[i].y, points[i + 1].x, points[i + 1].y);
+    sum += d;
+  }
+  return sum;
+}
+
+
+
+
