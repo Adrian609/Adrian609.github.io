@@ -1,5 +1,3 @@
-
-
 const div = document.getElementById("fetch-demo");
 const url = "https://api.iextrading.com/1.0/stock/aapl/quote";
 const url2 = "https://stats.nba.com/stats/commonallplayers";
