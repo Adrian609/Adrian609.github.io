@@ -80,3 +80,24 @@ function createChart(symbol, high, low, close) {
         }
     });
 }
+var cities = [];
+var totalCities = 3;
+function setup() {
+    
+    var myCanvas = createCanvas(600, 300);
+    myCanvas.parent('traveling-salesman');
+  
+    for (var i = 0; i < totalCities; i++) {
+        var v = createVector(random(width), random(height));
+        cities[i] = v;
+    }
+    
+}
+
+function draw() {
+    background(0);
+    fill(255);
+    for (var i = 0; i < cities.length; i++) {
+        ellipse(cities[i].x, cities[i].y, 4, 4);
+    }
+}
