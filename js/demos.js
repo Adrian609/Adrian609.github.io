@@ -157,6 +157,8 @@ function calcDistance(points) {
 
 console.log(recordDistance);
 
+console.log(recordDistance);
+
 
 
 
