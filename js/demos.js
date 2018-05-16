@@ -4,10 +4,27 @@ const div = document.getElementById("fetch-demo");
 const url = "https://api.iextrading.com/1.0/stock/aapl/quote";
 const url2 = "https://stats.nba.com/stats/commonallplayers";
 
+document.getElementById("tsButton").addEventListener("click", function (event) {
+    event.preventDefault();
+    submitButt();
+});
+
 var cities = [];
 var totalCities = 6;
 var recordDistance;
 var bestEver;
+
+function submitButt() {
+    var pointSelect = document.getElementById("pointsSelector");
+    var algoSelect = document.getElementById("algoSelector");
+    //console.log(algoSelect.value, pointSelect.value);
+
+    totalCities = pointSelect.value;    
+    setup();
+    //draw();
+    console.log(totalCities);
+}
+console.log(totalCities.value);
 
 function createNode(element) {
     return document.createElement(element);
@@ -155,9 +172,6 @@ function calcDistance(points) {
     return sum;
 }
 
-console.log(recordDistance);
-
-console.log(recordDistance);
 
 
 

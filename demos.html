@@ -60,26 +60,26 @@
             <div>
                 <form>
                     <div class="form-row">
-                        <div class="col-2">
+                        <!--<div class="col-2">
                             <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Algorithm</label>
                         </div>
                         <div class="col-3">
-                            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                            <select class="custom-select my-1 mr-sm-2" id="algoSelector">
                                 <option selected>Brute Force</option>
-                                <option value="1">Lexicographic Order</option>
+                                <option>Lexicographic Order</option>
                             </select>
+                        </div>-->
+                        <div class="col">
+                            <label class="my-1 mr-2">Number of Points</label>
                         </div>
-                        <div class="col-2">
-                            <label class="my-1 mr-2"># Points</label>
-                        </div>
-                        <div class="col-2">
-                            <select class="custom-select my-1 mr-sm-2" id="">
+                        <div class="col">
+                            <select class="custom-select my-1 mr-sm-2" id="pointsSelector">
                                 <option selected>6</option>
-                                <option value="1">8</option>
+                                <option>8</option>
                             </select>
                         </div>
                         <div class="col">
-                            <button type="submit" class="btn btn-primary my-1">Submit</button>
+                            <button class="btn btn-primary my-1" id="tsButton">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -101,18 +101,18 @@
             </div>
         </footer>
     </div>
-    <script async src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
-    <script async src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
-    <script async language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"
+    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script async src="/js/demos.js"></script>
-    <script async language="javascript" type="text/javascript" src="/js/libs/p5.min.js"></script>
-    <script async language="javascript" type="text/javascript" src="/js/libs/p5.dom.min.js"></script>
+    <script src="/js/demos.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/libs/p5.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/js/libs/p5.dom.min.js"></script>
 
 </body>
 
