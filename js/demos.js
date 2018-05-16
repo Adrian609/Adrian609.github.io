@@ -57,9 +57,7 @@ function creatList(repos) {
         high = repos.high,
         low = repos.low,
         close = repos.close;
-
     createChart(symbol, high, low, close);
-    console.log(repos);
     let p = document.getElementById("stock-info");
     p.innerHTML = `<b>Company:</b> ${name} <b>SYM:</b> ${symbol} <b>High:</b><span id="high"> ${high}</span> <b>Low:</b><span id="low"> ${low}</span> <b>Close:</b> ${close}`;
 }
