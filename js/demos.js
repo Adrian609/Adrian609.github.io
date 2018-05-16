@@ -1,28 +1,36 @@
-
-
 const div = document.getElementById("fetch-demo");
-const url = "https://api.iextrading.com/1.0/stock/aapl/quote";
-const url2 = "https://stats.nba.com/stats/commonallplayers";
-
-document.getElementById("tsButton").addEventListener("click", function (event) {
-    event.preventDefault();
-    submitButt();
-});
-
+let url = "https://api.iextrading.com/1.0/stock/aapl/quote";
 var cities = [];
 var totalCities = 6;
 var recordDistance;
 var bestEver;
 
+fetchStock(url);
+
+document.getElementById("tsButton").addEventListener("click", function (event) {
+    event.preventDefault();
+    submitButt();
+});
+document.getElementById("stockButton").addEventListener("click", function (event) {
+    event.preventDefault();
+    stockButt()
+});
+
+function stockButt() {
+    var stockSelector = document.getElementById("stockSelector");
+    let stockSym = stockSelector.value;
+    let newUrl = `https://api.iextrading.com/1.0/stock/${stockSym}/quote`;
+
+    fetchStock(newUrl);
+}
+
 function submitButt() {
     var pointSelect = document.getElementById("pointsSelector");
     var algoSelect = document.getElementById("algoSelector");
-    //console.log(algoSelect.value, pointSelect.value);
 
-    totalCities = pointSelect.value;    
+    totalCities = pointSelect.value;
+    console.log(algoSelect.value);
     setup();
-    //draw();
-    console.log(totalCities);
 }
 console.log(totalCities.value);
 
@@ -33,20 +41,17 @@ function createNode(element) {
 function appends(parent, el) {
     return parent.appendChild(el);
 }
-
-fetch(url).then(response => response.json()).then(function (data) {
-    //console.log(data);
-    let repos = data; // Get the results
-    //console.log(repos);
-
-    creatList(repos);
-}).catch(function (error) {
-    console.log(error);
-    //alert('There was a problem getting info! *If you are using IE or Edge this demo will not work')
-});
+function fetchStock(url) {
+    let location = url;
+    fetch(location).then(response => response.json()).then(function (data) {
+        let repos = data;
+        creatList(repos);
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
 
 function creatList(repos) {
-
     var name = repos.companyName,
         symbol = repos.symbol,
         high = repos.high,
@@ -54,16 +59,9 @@ function creatList(repos) {
         close = repos.close;
 
     createChart(symbol, high, low, close);
-
     console.log(repos);
-
-    let p = createNode('p'),
-        a = createNode('a');
-
-    p.innerHTML = `<b>Company:</b> ${name} <b>SYM:</b> ${symbol} <b>High:</b><span id="high"> ${high}</span> <b>Low:</b><span id="low"> ${low}</span> <b>Close:</b> ${close}`; // Make the HTML of our span to be the first and last name of our author
-
-    appends(div, p);
-
+    let p = document.getElementById("stock-info");
+    p.innerHTML = `<b>Company:</b> ${name} <b>SYM:</b> ${symbol} <b>High:</b><span id="high"> ${high}</span> <b>Low:</b><span id="low"> ${low}</span> <b>Close:</b> ${close}`;
 }
 
 var ctx = document.getElementById("myChart").getContext('2d');
