@@ -50,7 +50,6 @@ function fetchStock(url) {
         console.log(error);
     });
 }
-
 function creatList(repos) {
     var name = repos.companyName,
         symbol = repos.symbol,
