@@ -45,6 +45,7 @@ function fetchStock(url) {
     let location = url;
     fetch(location).then(response => response.json()).then(function (data) {
         let repos = data;
+        console.log(repos);
         creatList(repos);
     }).catch(function (error) {
         console.log(error);
@@ -53,12 +54,14 @@ function fetchStock(url) {
 function creatList(repos) {
     var name = repos.companyName,
         symbol = repos.symbol,
-        high = repos.high,
-        low = repos.low,
+        high = repos.week52High,
+        low = repos.week52Low,
         close = repos.close;
+
+        console.log(name, high, low, close);
     createChart(symbol, high, low, close);
     let p = document.getElementById("stock-info");
-    p.innerHTML = `<b>Company:</b> ${name} <b>SYM:</b> ${symbol} <b>High:</b><span id="high"> ${high}</span> <b>Low:</b><span id="low"> ${low}</span> <b>Close:</b> ${close}`;
+    p.innerHTML = `Company:<b> ${name}</b><br> SYM: <b>${symbol}</b> 52 Week High:<b><span id="high"> ${high}</span></b> 52 Week Low:<b><span id="low"> ${low}</span> </b>Close:<b> ${close}</b>`;
 }
 
 var ctx = document.getElementById("myChart").getContext('2d');
@@ -66,7 +69,7 @@ function createChart(symbol, high, low, close) {
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["High", "Low", "Close"],
+            labels: ["52 Week High", "52 Week Low", "Close"],
             datasets: [{
                 label: symbol,
                 data: [high, low, close],
