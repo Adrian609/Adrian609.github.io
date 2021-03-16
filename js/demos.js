@@ -1,6 +1,6 @@
 const div = document.getElementById("fetch-demo");
-const myKey = secrets.MY_KEY;
-const myHost = secrets.MY_HOST;
+const myKey = config.MY_KEY;
+const myHost = config.MY_HOST;
 let url =
   "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=AMRN&region=US";
 var ctx = document.getElementById("myChart").getContext("2d");
@@ -8,11 +8,12 @@ var cities = [];
 var totalCities = 6;
 var recordDistance;
 var bestEver;
-fetchStock(url);
+
 document.getElementById("tsButton").addEventListener("click", function (event) {
   event.preventDefault();
   submitButt();
 });
+
 document
   .getElementById("stockButton")
   .addEventListener("click", function (event) {
@@ -36,7 +37,6 @@ function submitButt() {
   console.log(algoSelect.value);
   setup();
 }
-console.log(totalCities.value);
 
 function createNode(element) {
   return document.createElement(element);
@@ -73,6 +73,7 @@ function creatList(repos) {
     low: repos.summaryDetail.fiftyTwoWeekLow.fmt,
     close: repos.summaryDetail.previousClose.fmt,
   };
+
   let p = document.getElementById("stock-info");
   p.innerHTML = `Company:<b> ${stockDetails.name}</b><br> SYM: <b>${stockDetails.symbol}</b> 52 Week High:<b><span id="high"> ${stockDetails.high}</span></b> 52 Week Low:<b><span id="low"> ${stockDetails.low}</span> </b>Close:<b> ${stockDetails.close}</b>`;
 
@@ -180,11 +181,13 @@ function draw() {
     bestEver = cities.slice();
   }
 }
+
 function swap(a, i, j) {
   var temp = a[i];
   a[i] = a[j];
   a[j] = temp;
 }
+
 function calcDistance(points) {
   var sum = 0;
   let temp = sum;
@@ -194,3 +197,5 @@ function calcDistance(points) {
   }
   return sum;
 }
+
+fetchStock(url);
