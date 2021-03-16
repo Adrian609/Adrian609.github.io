@@ -1,6 +1,6 @@
 const div = document.getElementById("fetch-demo");
-const myKey = MY_KEY;
-const myHost = MY_HOST;
+const myKey = secrets.MY_KEY;
+const myHost = secrets.MY_HOST;
 let url =
   "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=AMRN&region=US";
 var ctx = document.getElementById("myChart").getContext("2d");
