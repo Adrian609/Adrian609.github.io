@@ -1,5 +1,8 @@
 const div = document.getElementById("fetch-demo");
-let url = "https://api.iextrading.com/1.0/stock/aapl/quote";
+const myKey = MY_KEY;
+const myHost = MY_HOST;
+let url =
+  "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=AMRN&region=US";
 var ctx = document.getElementById("myChart").getContext("2d");
 var cities = [];
 var totalCities = 6;
@@ -20,9 +23,10 @@ document
 function stockButt() {
   var stockSelector = document.getElementById("stockSelector");
   let stockSym = stockSelector.value;
-  let newUrl = `https://api.iextrading.com/1.0/stock/${stockSym}/quote`;
+  let newUrl = `https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary?symbol=${stockSym}&region=US`;
+
   fetchStock(newUrl);
-};
+}
 
 function submitButt() {
   var pointSelect = document.getElementById("pointsSelector");
@@ -31,48 +35,60 @@ function submitButt() {
   totalCities = pointSelect.value;
   console.log(algoSelect.value);
   setup();
-};
+}
 console.log(totalCities.value);
 
 function createNode(element) {
   return document.createElement(element);
-};
+}
 
 function appends(parent, el) {
   return parent.appendChild(el);
-};
+}
+
 function fetchStock(url) {
-  let location = url;
-  fetch(location)
-    .then(response => response.json())
-    .then(function (data) {
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "x-rapidapi-key": myKey,
+      "x-rapidapi-host": myHost,
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
       let repos = data;
       console.log(repos);
       creatList(repos);
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch((err) => {
+      console.error(err);
     });
-};
+}
+
 function creatList(repos) {
-  var name = repos.companyName,
-    symbol = repos.symbol,
-    high = repos.week52High,
-    low = repos.week52Low,
-    close = repos.close;
-
-  console.log(name, high, low, close);
-
-  createChart(symbol, high, low, close);
+  const stockDetails = {
+    name: repos.quoteType.longName,
+    symbol: repos.symbol,
+    high: repos.summaryDetail.fiftyTwoWeekHigh.fmt,
+    low: repos.summaryDetail.fiftyTwoWeekLow.fmt,
+    close: repos.summaryDetail.previousClose.fmt,
+  };
   let p = document.getElementById("stock-info");
-  p.innerHTML = `Company:<b> ${name}</b><br> SYM: <b>${symbol}</b> 52 Week High:<b><span id="high"> ${high}</span></b> 52 Week Low:<b><span id="low"> ${low}</span> </b>Close:<b> ${close}</b>`;
-};
+  p.innerHTML = `Company:<b> ${stockDetails.name}</b><br> SYM: <b>${stockDetails.symbol}</b> 52 Week High:<b><span id="high"> ${stockDetails.high}</span></b> 52 Week Low:<b><span id="low"> ${stockDetails.low}</span> </b>Close:<b> ${stockDetails.close}</b>`;
 
-function createChart(symbol, high, low, close) {
+  createChart(
+    stockDetails.symbol,
+    stockDetails.high,
+    stockDetails.low,
+    stockDetails.close
+  );
+}
+
+function createChart(symbol, low, high, close) {
   var myChart = new Chart(ctx, {
     type: "line",
     data: {
-      labels: ["52 Week High", "52 Week Low", "Close"],
+      labels: ["52 Week Low", "52 Week High", "Close"],
       datasets: [
         {
           label: symbol,
@@ -80,59 +96,61 @@ function createChart(symbol, high, low, close) {
           radius: 5,
           backgroundColor: "rgba(255, 99, 132, 0.2)",
           borderColor: "rgba(255,99,132,1)",
-          borderWidth: 1
-        }
-      ]
+          borderWidth: 1,
+        },
+      ],
     },
     options: {
       tooltips: {
-        mode: "x"
+        mode: "x",
       },
       legend: {
         display: true,
         labels: {
-          fontColor: "#ffff"
-        }
+          fontColor: "#ffff",
+        },
       },
       xAxes: [
         {
           gridLines: {
-            display: false
-          }
-        }
+            display: false,
+          },
+        },
       ],
       scales: {
         yAxes: [
           {
             ticks: {
-              beginAtZero: false
-            }
-          }
-        ]
-      }
-    }
+              beginAtZero: false,
+            },
+          },
+        ],
+      },
+    },
   });
-};
+  myChart.update();
+}
+
 function setup() {
-  var myCanvas = createCanvas(600, 300);
+  var myCanvas = createCanvas(568, 284);
   myCanvas.parent("traveling-salesman");
   for (var i = 0; i < totalCities; i++) {
     var v = createVector(random(width), random(height));
     cities[i] = v;
-  };
+  }
 
   var d = calcDistance(cities);
   recordDistance = d;
   bestEver = cities.slice();
   var outPut = 0;
-};
+}
 
 function draw() {
   background(0);
   fill(255);
   for (var i = 0; i < cities.length; i++) {
     ellipse(cities[i].x, cities[i].y, 8, 8);
-  };
+  }
 
   stroke(255);
   strokeWeight(2);
@@ -160,13 +178,13 @@ function draw() {
   if (d < recordDistance) {
     recordDistance = d;
     bestEver = cities.slice();
-  };
-};
+  }
+}
 function swap(a, i, j) {
   var temp = a[i];
   a[i] = a[j];
   a[j] = temp;
-};
+}
 function calcDistance(points) {
   var sum = 0;
   let temp = sum;
@@ -175,4 +193,4 @@ function calcDistance(points) {
     sum += d;
   }
   return sum;
-};
+}
